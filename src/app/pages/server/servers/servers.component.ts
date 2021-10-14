@@ -35,7 +35,6 @@ export class ServersComponent implements OnInit {
        this.modalRef?.hide()
       })
     }
-    
   }
 
 }

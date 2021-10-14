@@ -11,7 +11,7 @@
             </ul>
             <div class="card-body">
               <button (click)="openModal(updateServerModal, server)" class="btn btn-info text-light me-3">Update</button>
-              <button class="btn btn-danger text-light">Delete</button>
+              <button (click)="openModal(deleteServerModal, server)" class="btn btn-danger text-light">Delete</button>
 
             </div>
           </div>
@@ -52,5 +52,12 @@
         </div>
         <button  class="btn btn-primary">Update Server</button>
       </form>
+    </div>
+</ng-template>
+<ng-template #deleteServerModal>
+    <div class="modal-body text-center" *ngIf="serverDetails">
+      <p>Do you want to this server {{serverDetails.name}}?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+      <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
     </div>
   </ng-template>

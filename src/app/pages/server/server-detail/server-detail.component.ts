@@ -2,7 +2,7 @@ import { ServerService } from './../../../services/server.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { IServer } from 'src/app/interfaces/server';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgForm } from '@angular/forms';
 
@@ -20,7 +20,8 @@ export class ServerDetailComponent implements OnInit {
   constructor(
     private serverSrv: ServerService,
     private modalService: BsModalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
     ) {
       this.serverId = this.route.snapshot.params.uuid;
      }
@@ -43,6 +44,19 @@ export class ServerDetailComponent implements OnInit {
       })
     }
   }
+  confirm(): void {
+    // this.message = 'Confirmed!';
+    this.serverSrv.deleteServer(this.serverId).subscribe(res => {
+      this.modalRef?.hide();
+      this.router.navigateByUrl('/')
+    })
+  }
+ 
+  decline(): void {
+    // this.message = 'Declined!';
+    this.modalRef?.hide();
+  }
+
 
 }
 
