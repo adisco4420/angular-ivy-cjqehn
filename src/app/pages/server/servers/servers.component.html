@@ -1,1 +1,61 @@
-<p>servers works!</p>
+<div class="mt-4">
+    <div class="row" *ngIf="(servers$ | async) as servers; else loadingServer">
+        <div class="col-12 mb-4">
+            <button (click)="openModal(addServerModal)" class="btn btn-primary">Add Server</button>
+        </div>
+        <div class="col-md-4 mb-4" *ngFor="let server of servers">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">{{server.name}}</h5>
+                  </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><b>{{server.mem}}</b> Memory</li>
+                  <li class="list-group-item"><b>{{server.cpu}}</b> CPU</li>
+                  <li class="list-group-item"><b>{{server.state}}</b></li>
+                </ul>
+                <div class="card-body">
+                  <a href="#" class="card-link">View</a>
+                </div>
+              </div>
+        </div>
+    </div>
+    <ng-template #loadingServer>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Loading server....</h3>
+            </div>
+        </div>
+    </ng-template>
+</div>
+<ng-template #addServerModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Add Server</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #addServerForm="ngForm" (ngSubmit)="addServer(addServerForm)" ngNativeValidate>
+          <div class="form-group">
+              <label>Name</label>
+              <input ngModel name="name" required type="text" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Memory (GB)</label>
+            <input ngModel name="mem" required type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>CPU (GHz)</label>
+            <input ngModel name="cpu" required type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>State</label>
+            <select ngModel name="state" required class="form-control">
+                <option value="running">Running</option>
+                <option value="stopped">Stopped</option>
+            </select>
+        </div>
+        <button class="btn btn-primary">Add Server</button>
+      </form>
+    </div>
+  </ng-template>
