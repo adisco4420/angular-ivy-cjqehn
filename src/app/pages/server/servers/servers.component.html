@@ -14,7 +14,7 @@
                   <li class="list-group-item"><b>{{server.state}}</b></li>
                 </ul>
                 <div class="card-body">
-                  <a href="#" class="card-link">View</a>
+                  <a [routerLink]="['/', server.uuid]" class="card-link">View</a>
                 </div>
               </div>
         </div>

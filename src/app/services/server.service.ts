@@ -31,24 +31,24 @@ export class ServerService {
     "name": "My Server 3"
   },
   {
-    "mem":  0, 
+    "mem":  3, 
     "state": "running", 
     "cpu":4, 
-    "uuid": "cb1cb873-0a46-41d6-affc-a1ed41955fbf", 
+    "uuid": "cb1cb873-0a46-41d6-affc-a1ed41955fbd", 
     "name": "My Server 4"
     },
     {
     "mem": 7, 
     "state": "stopped", 
     "cpu": 3, 
-    "uuid": "01e3021c-cd5c-4d3f-b39a-6b2dd3f706ba", 
+    "uuid": "01e3021c-cd5c-4d3f-b39a-6b2dd3f706bs", 
     "name": "My Server 5"
     }, 
     {
     "mem": 6, 
     "state": "running", 
     "cpu": 1, 
-    "uuid": "1d76a4b0-6887-43cc-97b3-8229c05b1fa1", 
+    "uuid": "1d76a4b0-6887-43cc-97b3-8229c05b1fa2", 
     "name": "My Server 6"
   }
   ]
@@ -71,7 +71,7 @@ export class ServerService {
     return new Observable((observer) => {
       const serverIndex = this.servers.findIndex(server => server.uuid === uuid);
       if(serverIndex && this.servers[serverIndex]) {
-        this.servers[serverIndex] = payload;
+        this.servers[serverIndex] = {...payload, uuid};
       }
       observer.next(this.servers)
     })
@@ -82,7 +82,7 @@ export class ServerService {
       observer.next(this.servers)
     })
   }
-  getServer(uuid: string) {
+  getServer(uuid: string): Observable<IServer> {
     return new Observable((observer) => {
       const server = this.servers.find(server => server.uuid == uuid);
       observer.next(server)

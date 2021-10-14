@@ -1,0 +1,56 @@
+<div class="row mt-4">
+    <div class="col-md-4 offset-md-4 mb-4" *ngIf="(server$ | async) as server; else loadingServer">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{server.name}}</h5>
+              </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><b>{{server.mem}}</b> Memory</li>
+              <li class="list-group-item"><b>{{server.cpu}}</b> CPU</li>
+              <li class="list-group-item"><b>{{server.state}}</b></li>
+            </ul>
+            <div class="card-body">
+              <button (click)="openModal(updateServerModal, server)" class="btn btn-info text-light me-3">Update</button>
+              <button class="btn btn-danger text-light">Delete</button>
+
+            </div>
+          </div>
+    </div>
+    <ng-template #loadingServer>
+        <div class="col-12" >
+            <h5>Loading Server...</h5>
+        </div>
+    </ng-template>
+</div>
+<ng-template #updateServerModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Update Server</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="serverDetails">
+      <form #updateServerForm="ngForm" (ngSubmit)="updateServer(updateServerForm)" ngNativeValidate>
+          <div class="form-group">
+              <label>Name</label>
+              <input [ngModel]="serverDetails.name" name="name" required type="text" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Memory (GB)</label>
+            <input [ngModel]="serverDetails.mem" name="mem" required type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>CPU (GHz)</label>
+            <input [ngModel]="serverDetails.cpu" name="cpu" required type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>State</label>
+            <select [ngModel]="serverDetails.state" name="state" required class="form-control">
+                <option value="running">Running</option>
+                <option value="stopped">Stopped</option>
+            </select>
+        </div>
+        <button  class="btn btn-primary">Update Server</button>
+      </form>
+    </div>
+  </ng-template>

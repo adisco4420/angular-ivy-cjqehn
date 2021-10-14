@@ -6,11 +6,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ServerRoutingModule } from './server-routing.module';
 import { ServersComponent } from './servers/servers.component';
 import { FormsModule } from '@angular/forms';
+import { ServerDetailComponent } from './server-detail/server-detail.component';
 
 
 @NgModule({
   declarations: [
-    ServersComponent
+    ServersComponent,
+    ServerDetailComponent
   ],
   imports: [
     CommonModule,

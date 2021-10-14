@@ -5,3 +5,9 @@
 
 /* Importing Datepicker SCSS file. */
 @import "~ngx-bootstrap/datepicker/bs-datepicker";
+
+.modal-body {
+    .form-group {
+        margin-bottom: 20px;
+    }
+}
